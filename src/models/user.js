@@ -31,7 +31,19 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ["male", "female", "other"], // optional but good
+      enum: ["male", "female", "other"],
+    },
+    photoUrl: {
+      type: String,
+      default: "",
+    },
+    about: {
+      type: String,
+      default: "",
+    },
+    skills: {
+      type: [String],
+      default: [],
     },
   },
   {
@@ -54,3 +66,4 @@ userSchema.methods.validatePassword = async function (passwordInputByUser) {
 }
 
 module.exports = mongoose.model("User", userSchema);
+

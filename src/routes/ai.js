@@ -3,7 +3,7 @@ const { generateResponse } = require('../services/aiService');
 
 const router = express.Router();
 
-router.post('/chat', async (req, res) => {
+router.post('/ai', async (req, res) => {
   try {
     const { prompt } = req.body;
     if (!prompt) {
