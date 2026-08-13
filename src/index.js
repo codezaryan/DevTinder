@@ -29,9 +29,21 @@ connectDB()
   })
   .catch((err) => console.log(err));
 
+app.get('/health', (req, res) => {
+    const healthStatus = {
+        status: 'UP',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(), // seconds server has been running
+        memoryUsage: process.memoryUsage(), // RAM metrics
+        environment: process.env.NODE_ENV || 'development'
+    };
 
-app.get('/test', (req, res) => {
-  res.send("Server is running!");
+    try {
+        res.status(200).json(healthStatus);
+    } catch (error) {
+        healthStatus.status = 'DOWN';
+        res.status(503).json(healthStatus);
+    }
 });
 
 app.use('/', authRouter)
